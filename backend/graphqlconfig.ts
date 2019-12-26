@@ -7,30 +7,30 @@ export const typeDefs = gql`
     name: String!
     imageURL: String!
     category: String!
-    price: Number!
-    discountPrice: Number
+    price: Int!
+    discountPrice: Int
     description: String
     defaultColor: String
     colorsAvailable: String
     brand: String!
     brandUrl: String!
     comment: [String]
-    currentRating: Number
+    currentRating: Int
   }
 
   input ProductInput {
     name: String!
     imageURL: String!
     category: String!
-    price: Number!
-    discountPrice: Number
+    price: Int!
+    discountPrice: Int
     description: String
     defaultColor: String
     colorsAvailable: String
     brand: String!
     brandUrl: String!
     comment: [String]
-    currentRating: Number
+    currentRating: Int
   }
 
   type Query {

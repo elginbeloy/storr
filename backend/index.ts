@@ -6,10 +6,11 @@ import mongoose from 'mongoose';
 import {resolvers, typeDefs} from './graphqlconfig';
 
 // Connect to MongoDB using Mongoose
-const mongoUser = 'fibeats';
-const mongoPass = 'HB8efzt7JiowdBeq';
-const mongoCluster = 'cluster0-cnqsr.mongodb.net';
-const mongoURI = `mongodb+srv://${mongoUser}:${mongoPass}@${mongoCluster}/test?retryWrites=true&w=majority`;
+const mongoUser = 'backendadmin';
+const mongoPass = '3SOVZJ3asVSjJ6IR';
+const mongoCluster = 'storrtestingcluster-49goi.mongodb.net';
+const dbName = 'storrtest';
+const mongoURI = `mongodb+srv://${mongoUser}:${mongoPass}@${mongoCluster}/${dbName}?retryWrites=true&w=majority`;
 
 console.log(`[DB]: Connecting to MongoDB with Mongoose at ${mongoURI}`);
 mongoose
