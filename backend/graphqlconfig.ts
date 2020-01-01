@@ -4,11 +4,11 @@ import {Product} from './models';
 export const typeDefs = gql`
   type Product {
     id: ID!
-    name: String!
-    imageURL: String!
-    category: String!
-    price: Int!
-    discountPrice: Int
+    name: String
+    imageURL: String
+    category: String
+    price: String
+    discountPrice: String
     description: String
     defaultColor: String
     colorsAvailable: String
@@ -20,10 +20,10 @@ export const typeDefs = gql`
 
   input ProductInput {
     name: String!
-    imageURL: String!
-    category: String!
-    price: Int!
-    discountPrice: Int
+    imageURL: String
+    category: String
+    price: String
+    discountPrice: String
     description: String
     defaultColor: String
     colorsAvailable: String
@@ -46,18 +46,18 @@ export const typeDefs = gql`
 `;
 
 interface ProductInput {
-    name: string;
-    imageURL: string;
-    category: string;
-    price: number;
-    discountPrice: number;
-    description: string;
-    defaultColor: string;
-    colorsAvailable: string;
-    brand: string;
-    brandUrl: string;
-    comment: [string];
-    currentRating: number;
+  name: string;
+  imageURL: string;
+  category: string;
+  price: number;
+  discountPrice: number;
+  description: string;
+  defaultColor: string;
+  colorsAvailable: string;
+  brand: string;
+  brandUrl: string;
+  comment: [string];
+  currentRating: number;
 }
 
 export const resolvers = {

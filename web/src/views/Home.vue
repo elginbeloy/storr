@@ -9,102 +9,18 @@
     </div>
 
     <div class="products-container">
-      <div class="product">
+      <div class="product" v-for="product in products" :key="product.id">
         <div
           class="product__image"
-          style="background: url('https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/fvkwuv6zfzmqoga8oysr/air-force-1-07-womens-shoe-KyTwDPGG.jpg')"
+          :style="`background: url('${product.imageURL}')`"
         >
-          <div class="product__image__brand-badge">Nike</div>
+          <div class="product__image__brand-badge">{{ product.brand }}</div>
         </div>
-        <div class="product__title">Nike Air Force 1 '07</div>
-        <div class="product__price">$ 90</div>
+        <div class="product__title">{{ product.name }}</div>
+        <div class="product__price">{{ product.price }}</div>
         <div class="product__rating">7.8 / 10 | 132 Reviews</div>
         <div class="product__desc">
-          Men's Shoe
-        </div>
-      </div>
-      <div class="product">
-        <div
-          class="product__image"
-          style="background: url('https://c.static-nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/slo1ymfeufewlxmlkfmx/air-max-270-game-change-big-kids-shoe-HbtNX3.jpg')"
-        >
-          <div class="product__image__brand-badge">Nike</div>
-        </div>
-        <div class="product__title">Nike Air Max 270</div>
-        <div class="product__price">$ 120</div>
-        <div class="product__rating">7.4 / 10 | 132 Reviews</div>
-        <div class="product__desc">
-          Little/Big Kid's Shoe
-        </div>
-      </div>
-      <div class="product">
-        <div
-          class="product__image"
-          style="background: url('https://c.static-nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/gnagjobmaan1rzm1gccj/air-zoom-pegasus-36-mens-running-shoe-D24Mcz.jpg')"
-        >
-          <div class="product__image__brand-badge">Nike</div>
-        </div>
-        <div class="product__title">Nike Air Zoom Pegasus</div>
-        <div class="product__price">$ 99.97</div>
-        <div class="product__rating">8.4 / 10 | 132 Reviews</div>
-        <div class="product__desc">
-          Men's Running Shoe
-        </div>
-      </div>
-      <div class="product">
-        <div
-          class="product__image"
-          style="background: url('https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/fvkwuv6zfzmqoga8oysr/air-force-1-07-womens-shoe-KyTwDPGG.jpg')"
-        >
-          <div class="product__image__brand-badge">Nike</div>
-        </div>
-        <div class="product__title">Nike Air Force 1 '07</div>
-        <div class="product__price">$ 90</div>
-        <div class="product__rating">7.8 / 10 | 132 Reviews</div>
-        <div class="product__desc">
-          Men's shoe
-        </div>
-      </div>
-      <div class="product">
-        <div
-          class="product__image"
-          style="background: url('https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/fvkwuv6zfzmqoga8oysr/air-force-1-07-womens-shoe-KyTwDPGG.jpg')"
-        >
-          <div class="product__image__brand-badge">Nike</div>
-        </div>
-        <div class="product__title">Nike Air Force 1 '07</div>
-        <div class="product__price">$ 90</div>
-        <div class="product__rating">7.8 / 10 | 132 Reviews</div>
-        <div class="product__desc">
-          Men's shoe
-        </div>
-      </div>
-      <div class="product">
-        <div
-          class="product__image"
-          style="background: url('https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/fvkwuv6zfzmqoga8oysr/air-force-1-07-womens-shoe-KyTwDPGG.jpg')"
-        >
-          <div class="product__image__brand-badge">Nike</div>
-        </div>
-        <div class="product__title">Nike Air Force 1 '07</div>
-        <div class="product__price">$ 90</div>
-        <div class="product__rating">7.8 / 10 | 132 Reviews</div>
-        <div class="product__desc">
-          Men's shoe
-        </div>
-      </div>
-      <div class="product">
-        <div
-          class="product__image"
-          style="background: url('https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/fvkwuv6zfzmqoga8oysr/air-force-1-07-womens-shoe-KyTwDPGG.jpg')"
-        >
-          <div class="product__image__brand-badge">Nike</div>
-        </div>
-        <div class="product__title">Nike Air Force 1 '07</div>
-        <div class="product__price">$ 90</div>
-        <div class="product__rating">7.8 / 10 | 132 Reviews</div>
-        <div class="product__desc">
-          Men's shoe
+          {{ product.category }}
         </div>
       </div>
     </div>
@@ -112,9 +28,28 @@
 </template>
 
 <script>
-export default {
-  name: "home"
-};
+import { Component, Vue } from "vue-property-decorator";
+import gql from "graphql-tag";
+
+@Component({
+  apollo: {
+    products: gql`
+      query {
+        products: listProducts {
+          id
+          name
+          imageURL
+          price
+          discountPrice
+          description
+          brand
+          brandUrl
+        }
+      }
+    `
+  }
+})
+export default class Home extends Vue {}
 </script>
 
 <style scoped lang="scss">
