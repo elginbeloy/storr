@@ -52,14 +52,17 @@ export default class Home extends Vue {
 
     return this.allProducts.filter(product => {
       const nameMatch = queryTerms.some(queryTerm => {
+        // @ts-ignore
         return product.name.toLowerCase().includes(queryTerm.toLowerCase());
       });
 
       const brandMatch = queryTerms.some(queryTerm => {
+        // @ts-ignore
         return product.brand.toLowerCase().includes(queryTerm.toLowerCase());
       });
 
       const descriptionMatch = queryTerms.some(queryTerm => {
+        // @ts-ignore
         return product.description
           .toLowerCase()
           .includes(queryTerm.toLowerCase());

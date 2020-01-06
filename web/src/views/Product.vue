@@ -83,8 +83,10 @@ export default class Home extends Vue {
             }
           }
         `,
+        // @ts-ignore
         prefetch: ({ route }) => ({ id: route.params.id }),
         variables(): { id: string } {
+          // @ts-ignore
           return { id: this.$route.params.id };
         }
       }
