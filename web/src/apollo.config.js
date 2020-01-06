@@ -2,8 +2,7 @@ module.exports = {
   client: {
     service: {
       name: "storr-backend",
-      // URL to the GraphQL API
-      url: "http://localhost:3000/graphql"
+      url: "https://storr-backend.herokuapp.com/graphql"
     },
     // Files processed by the extension
     includes: ["src/**/*.vue", "src/**/*.js", "src/**/*.ts"]

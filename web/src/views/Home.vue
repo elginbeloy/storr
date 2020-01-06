@@ -1,37 +1,52 @@
 <template>
   <div class="home">
+    <div class="hero-container">
+      <div class="hero-container__title">Storr</div>
+      <div class="hero-container__subtitle">
+        Created by people. Powered by Brands.
+      </div>
+    </div>
+
+    <div class="title">Top Products</div>
+
     <div class="filter-bar">
-      <div class="filter-title">Filter Products</div>
-      <div>Rating <span class="icon-chevron-down" /></div>
-      <div>Price <span class="icon-chevron-down" /></div>
-      <div>Brand <span class="icon-chevron-down" /></div>
-      <div>Color <span class="icon-chevron-down" /></div>
+      <div class="filter-bar__option">Women's Shoes</div>
+      <div class="filter-bar__option">Men's Shoes</div>
+      <div class="filter-bar__option">Women's Tops</div>
+      <div class="filter-bar__option">Men's Tops</div>
+      <div class="filter-bar__option">Sports</div>
+      <div class="filter-bar__option">Kids</div>
     </div>
 
     <div class="products-container">
-      <div class="product" v-for="product in products" :key="product.id">
-        <div
-          class="product__image"
-          :style="`background: url('${product.imageURL}')`"
-        >
-          <div class="product__image__brand-badge">{{ product.brand }}</div>
-        </div>
-        <div class="product__title">{{ product.name }}</div>
-        <div class="product__price">{{ product.price }}</div>
-        <div class="product__rating">7.8 / 10 | 132 Reviews</div>
-        <div class="product__desc">
-          {{ product.category }}
-        </div>
-      </div>
+      <Product
+        v-for="product in topProducts"
+        :key="product.id"
+        :product="product"
+      />
+    </div>
+
+    <div class="title">Recommended For You</div>
+
+    <div class="products-container">
+      <Product
+        v-for="product in recommendedProducts"
+        :key="product.id"
+        :product="product"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import { Component, Vue } from "vue-property-decorator";
+import Product from "@/components/Product.vue";
 import gql from "graphql-tag";
 
 @Component({
+  components: {
+    Product
+  },
   apollo: {
     products: gql`
       query {
@@ -49,7 +64,17 @@ import gql from "graphql-tag";
     `
   }
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  products = [];
+
+  get topProducts() {
+    return this.products.slice(0, 6);
+  }
+
+  get recommendedProducts() {
+    return this.products.slice(24, 42);
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -58,113 +83,114 @@ export default class Home extends Vue {}
   top: 160px;
   left: 0;
   width: 100%;
+  max-width: 1500px;
   height: calc(100% - 160px);
-  padding: 10px 20px;
+  padding: 10px 40px;
 
   overflow: auto;
 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
-}
-
-.filter-bar {
-  position: relative;
-  width: 100%;
-  height: auto;
-  margin-top: 40px;
-  margin-bottom: 60px;
-  padding-left: 100px;
-  padding-right: 100px;
-
-  color: #202020;
-  font-size: 16px;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   align-items: center;
 }
 
-.filter-title {
-  color: #3b80fa;
+.title {
+  position: realtive;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 100%;
+  margin-bottom: 40px;
+
+  font-size: 24px;
   font-weight: 600;
+  color: #000000;
+  text-align: left;
+}
+
+.hero-container {
+  position: relative;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 100%;
+  height: 40vw;
+  max-height: 300px;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  padding: 50px;
+
+  background: #3b80fa;
+  background: linear-gradient(to right, #3b80fa, #6c9ef7);
+
+  border-radius: 16px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  &__title {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 58px;
+    color: #ffffff;
+  }
+
+  &__subtitle {
+    font-size: 24px;
+    font-weight: 400;
+    color: #fafafa;
+  }
+}
+
+.filter-bar {
+  position: realtive;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 100%;
+  margin-bottom: 40px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  &__option {
+    position: relative;
+    width: auto;
+    height: auto;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin-right: 20px;
+
+    background-color: #ffffff00;
+    font-size: 14px;
+    color: #000000;
+    box-shadow: 0 0 3px 1px #00000040;
+    cursor: pointer;
+    transition: 0.1s linear all;
+
+    &:hover {
+      background-color: #3b80fa;
+      box-shadow: 0 0 3px 1px #3b80fa60;
+      color: #ffffff;
+    }
+  }
 }
 
 .products-container {
   position: relative;
+  flex-grow: 0;
+  flex-shrink: 0;
   width: 100%;
   height: auto;
 
+  overflow-x: scroll;
+
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: flex-start;
-}
-
-.product {
-  position: relative;
-  flex-grow: 0;
-  flex-shrink: 0;
-  width: 320px;
-  height: 400px;
-  margin: 20px;
-  margin-top: 0px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-
-  overflow: hidden;
-
-  display: flex;
-  flex-direction: column;
+  flex-wrap: no-wrap;
   justify-content: flex-start;
   align-items: flex-start;
-
-  &__image {
-    position: relative;
-    width: 100%;
-    height: 180px;
-    margin-bottom: 20px;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-    background-size: 320px auto !important;
-
-    &__brand-badge {
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      padding: 4px 8px;
-      font-size: 12px;
-      color: #ffffff;
-      background-color: #000000;
-      border-radius: 8px;
-    }
-  }
-
-  &__title {
-    font-size: 24px;
-    color: #000000;
-  }
-
-  &__rating {
-    font-size: 14px;
-    color: #202020;
-  }
-
-  &__price {
-    font-size: 20px;
-    color: #000000;
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-
-  &__desc {
-    font-size: 14px;
-    color: #424242;
-    text-align: left;
-    line-height: 28px;
-  }
 }
 </style>

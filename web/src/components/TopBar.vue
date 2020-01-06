@@ -1,7 +1,9 @@
 <template>
   <div class="top-bar">
     <div class="top-bar__upper">
-      <img src="../assets/images/logo.png" class="top-bar__logo" />
+      <a href="/">
+        <img src="../assets/images/logo.png" class="top-bar__logo" />
+      </a>
       <div class="top-bar__search-container">
         <div class="top-bar__filter">
           All
@@ -11,8 +13,11 @@
           type="text"
           placeholder="What are you looking for?"
           class="top-bar__search"
+          @keyup="onSearchKey"
+          @focus="onSearch"
+          @blur="onSearch"
         />
-        <div class="top-bar__search-button">
+        <div class="top-bar__search-button" @click="onSearch">
           <span class="icon-search" />
         </div>
       </div>
@@ -45,7 +50,23 @@
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
-export default class HelloWorld extends Vue {}
+export default class TopBar extends Vue {
+  onSearchKey(evt: KeyboardEvent) {
+    this.$router.replace({
+      path: `/search/${
+        evt.target ? (evt.target as HTMLTextAreaElement).value : ""
+      }`
+    });
+  }
+
+  onSearch(evt: KeyboardEvent) {
+    this.$router.push({
+      path: `/search/${
+        evt.target ? (evt.target as HTMLTextAreaElement).value : ""
+      }`
+    });
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -108,12 +129,13 @@ export default class HelloWorld extends Vue {}
   flex-grow: 0;
   flex-shrink: 0;
   height: 38px;
-  border-radius: 8px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
   margin-right: -16px;
   width: auto;
   padding: 0px 14px;
-  background-color: lighten(#3b80fa, 32%);
-  color: #3b80fa;
+  background-color: #3b80fa;
+  color: #ffffff;
   font-size: 14px;
 
   display: flex;
@@ -147,8 +169,8 @@ export default class HelloWorld extends Vue {}
   height: 38px;
   margin-left: -16px;
   border-radius: 8px;
-  background-color: #3b80fa;
-  color: #ffffff;
+  background-color: #f4f4f4;
+  color: #202020;
   font-size: 12px;
   cursor: pointer;
 
