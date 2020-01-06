@@ -6,7 +6,7 @@ import VueApollo from "vue-apollo";
 // HTTP connection to the API
 const httpLink = createHttpLink({
   // You should use an absolute URL here
-  uri: "https://dazzling-morse-001506.netlify.com/graphql"
+  uri: "https://storr-backend.herokuapp.com/graphql"
 });
 
 // Cache implementation
