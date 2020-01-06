@@ -6,13 +6,13 @@ import mongoose from 'mongoose';
 import {resolvers, typeDefs} from './graphqlconfig';
 
 // Connect to MongoDB using Mongoose
-const mongoUser = 'backendadmin';
-const mongoPass = '3SOVZJ3asVSjJ6IR';
-const mongoCluster = 'storrtestingcluster-49goi.mongodb.net';
-const dbName = 'storrtest';
+const mongoUser = process.env.MONGO_USER; //'backendadmin';
+const mongoPass = process.env.MONGO_PASS; //'3SOVZJ3asVSjJ6IR';
+const mongoCluster = process.env.MONGO_CLUSTER; // 'storrtestingcluster-49goi.mongodb.net';
+const dbName = process.env.MONGO_DB_NAME; //'storrtest';
 const mongoURI = `mongodb+srv://${mongoUser}:${mongoPass}@${mongoCluster}/${dbName}?retryWrites=true&w=majority`;
 
-console.log(`[DB]: Connecting to MongoDB with Mongoose at ${mongoURI}`);
+console.log(`[DB]: Connecting to MongoDB cluster: ${mongoCluster}...`);
 mongoose
   .connect(mongoURI, {useNewUrlParser: true})
   .then(() => {
